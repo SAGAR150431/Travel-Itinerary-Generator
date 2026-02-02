@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Itinerary Generator</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="bg-interactive" id="bg-interactive" aria-hidden="true">
+    <div class="bg-gradient"></div>
+    <div class="bg-orbs">
+      <span class="bg-orb orb-1">✈️</span>
+      <span class="bg-orb orb-2">🗺️</span>
+      <span class="bg-orb orb-3">🌍</span>
+      <span class="bg-orb orb-4">🎒</span>
+      <span class="bg-orb orb-5">🌴</span>
+      <span class="bg-orb orb-6">📷</span>
+      <span class="bg-orb orb-7">🧳</span>
+      <span class="bg-orb orb-8">🏖️</span>
+    </div>
+  </div>
+  <div class="page-wrap">
+    <header class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <h1 class="title">✈️ Travel Itinerary Generator</h1>
+      <p class="tagline">🗺️ Plan your trip in one place — destination, budget, and preferences.</p>
+    </header>
+
+    <main class="main">
+      <form id="itinerary-form" class="form" novalidate>
+        <section class="form-section">
+          <h2 class="section-title">📍 Trip Details</h2>
+
+          <div class="field-group">
+            <label for="starting-location">Starting location <span class="required">*</span></label>
+            <input
+              type="text"
+              id="starting-location"
+              name="startingLocation"
+              placeholder="e.g. New York, NY"
+              required
+              autocomplete="address-level2"
+            >
+            <span class="field-error" id="starting-location-error" role="alert"></span>
+          </div>
+
+          <div class="field-group">
+            <label for="destination">Destination / location <span class="required">*</span></label>
+            <input
+              type="text"
+              id="destination"
+              name="destination"
+              placeholder="e.g. Paris, France"
+              required
+              autocomplete="address-level2"
+            >
+            <span class="field-error" id="destination-error" role="alert"></span>
+          </div>
+
+          <div class="row">
+            <div class="field-group">
+              <label for="number-of-days">Number of days <span class="required">*</span></label>
+              <input
+                type="number"
+                id="number-of-days"
+                name="numberOfDays"
+                min="1"
+                max="365"
+                placeholder="e.g. 7"
+                required
+              >
+              <span class="field-error" id="number-of-days-error" role="alert"></span>
+            </div>
+            <div class="field-group">
+              <label for="number-of-travelers">Number of travelers <span class="required">*</span></label>
+              <input
+                type="number"
+                id="number-of-travelers"
+                name="numberOfTravelers"
+                min="1"
+                max="99"
+                placeholder="e.g. 2"
+                required
+              >
+              <span class="field-error" id="number-of-travelers-error" role="alert"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2 class="section-title">💰 Budget & travel</h2>
+
+          <div class="field-group">
+            <label for="budget">Budget <span class="required">*</span></label>
+            <div class="input-with-prefix">
+              <span class="prefix">$</span>
+              <input
+                type="number"
+                id="budget"
+                name="budget"
+                min="0"
+                step="1"
+                placeholder="e.g. 2500"
+                required
+              >
+            </div>
+            <span class="field-hint">Total trip budget in your currency</span>
+            <span class="field-error" id="budget-error" role="alert"></span>
+          </div>
+
+          <div class="field-group">
+            <label>Mode of travel <span class="required">*</span></label>
+            <div class="radio-group" role="group" aria-labelledby="mode-label">
+              <span id="mode-label" class="visually-hidden">Mode of travel</span>
+              <label class="radio-option">
+                <input type="radio" name="modeOfTravel" value="bus" required>
+                <span class="radio-label">🚌 Bus</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="modeOfTravel" value="train">
+                <span class="radio-label">🚂 Train</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="modeOfTravel" value="flight">
+                <span class="radio-label">✈️ Flight</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="modeOfTravel" value="car">
+                <span class="radio-label">🚗 Car</span>
+              </label>
+            </div>
+            <span class="field-error" id="mode-of-travel-error" role="alert"></span>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2 class="section-title">✉️ Contact & preferences</h2>
+
+          <div class="field-group">
+            <label for="email">Email address <span class="required">*</span></label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@example.com"
+              required
+              autocomplete="email"
+            >
+            <span class="field-error" id="email-error" role="alert"></span>
+          </div>
+
+          <div class="field-group">
+            <label for="additional-preferences">Additional preferences <span class="optional">(optional)</span></label>
+            <textarea
+              id="additional-preferences"
+              name="additionalPreferences"
+              rows="4"
+              placeholder="e.g. vegetarian food, wheelchair access, kid-friendly activities, must-see landmarks…"
+            ></textarea>
+          </div>
+        </section>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="submit-btn">✨ Generate itinerary</button>
+          <button type="reset" class="btn btn-secondary">🔄 Clear form</button>
+        </div>
+      </form>
+
+      <aside id="summary-panel" class="summary-panel hidden" aria-live="polite">
+        <h2 class="summary-title">📋 Your trip summary</h2>
+        <p id="email-status" class="email-status" role="status" aria-live="polite"></p>
+        <dl class="summary-list" id="summary-list"></dl>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <p>🌏 Travel Itinerary Generator — plan once, travel well.</p>
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

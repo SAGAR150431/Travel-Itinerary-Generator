@@ -1,0 +1,119 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "81f3f811-477f-416f-b511-ed223b274b42",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1952,
+        -144
+      ],
+      "id": "870c7783-a5f0-4480-96ed-fae6cf25aa7f",
+      "name": "Webhook",
+      "webhookId": "81f3f811-477f-416f-b511-ed223b274b42"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-5-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=Plan a customized travel itinerary with the following user information:\nStarting location: {{ $json.body.startingLocation }}\nDestination:{{ $json.body.destination }}\nTrip length: {{ $json.body.numberOfDays }}\nBudget:{{ $json.body.budget }}\nTravel mode:{{ $json.body.modeOfTravel }}\nNumber of people:{{ $json.body.numberOfTravelers }}\nUser preferences:{{ $json.body.additionalPreferences }}\n\nPlease include:\n\n1. A clear day-wise plan (Day 1, Day 2, etc.)\n2. Morning, afternoon, and evening activities for each day\n3. Popular tourist spots and local experiences\n4. Approximate daily budget usage\n5. Budget-saving tips\n6. Travel considerations based on the chosen travel mode\n\nFormat the itinerary neatly with headings and bullet points.\nadd some emojis and give detailed plan"
+            },
+            {
+              "role": "system",
+              "content": "=You are an expert travel planner and itinerary generator.\n\nYou specialize in creating personalized, realistic, and budget-conscious travel plans.\n\nYour responsibilities:\n\n- Understand user travel preferences clearly\n- Create structured day-wise itineraries\n- Suggest popular attractions and meaningful activities\n- Respect the user’s budget limitations\n- Provide helpful travel and safety tips\n- Keep the content simple, friendly, and easy to follow\n\nEnsure every itinerary:\n\n- Is practical and not rushed\n- Matches the number of travel days exactly\n- Includes budget awareness\n- Is well formatted with headings\n\nDo not include unnecessary explanations outside the itinerary.\n\nadd emojis give detailed information with points"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        -1712,
+        -144
+      ],
+      "id": "e2a2ca75-cdbf-421e-8bc6-5113ff77fa10",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "jcoxIKIYVv0jriE1",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "sagardondapati02@gmail.com",
+        "subject": "Your Dream Trip Plan Is Here! 🌴✈️",
+        "emailType": "text",
+        "message": "={{ $json.output[0].content[0].text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -1328,
+        -144
+      ],
+      "id": "1a917637-c748-47f0-8aaf-06ff38b1991f",
+      "name": "Send a message",
+      "webhookId": "b3a813ed-b8e5-4c8a-b11f-ff391cb38bac",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "6aL2DN3bf1qteAix",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "a6583691-0bca-471c-be90-791c5aa2c852",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "531d63c8d80ea976845b2c114aebf3d258d44ffb4cb3c4a16c75affe59ef0a17"
+  },
+  "id": "d4M79J-X5faDer_MYYGln",
+  "tags": []
+}
